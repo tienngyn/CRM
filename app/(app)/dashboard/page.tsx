@@ -15,7 +15,7 @@ export default async function DashboardPage() {
     .order("next_action_at", { ascending: true, nullsFirst: false });
 
   const all = (deals ?? []) as Deal[];
-  const open = all.filter((d) => d.stage !== "lost" && d.stage !== "active");
+  const open = all.filter((d) => (d.stage as string) !== "lost" && d.stage !== "active");
   const pipelineValue = open.reduce((s, d) => s + (d.deal_value ?? 0), 0);
 
   // Today's call count
@@ -35,11 +35,11 @@ export default async function DashboardPage() {
 
   const now = new Date();
   const overdueFollowUps = all.filter(
-    (d) => d.next_action_at && new Date(d.next_action_at) < now && d.stage !== "lost"
+    (d) => d.next_action_at && new Date(d.next_action_at) < now && (d.stage as string) !== "lost"
   );
 
   const nextActions = all
-    .filter((d) => d.next_action_at && new Date(d.next_action_at) >= now && d.stage !== "lost")
+    .filter((d) => d.next_action_at && new Date(d.next_action_at) >= now && (d.stage as string) !== "lost")
     .slice(0, 5);
 
   const closingDeals = all.filter((d) => d.stage === "closing");

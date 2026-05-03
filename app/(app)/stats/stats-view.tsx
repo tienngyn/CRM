@@ -130,8 +130,7 @@ export function StatsView({ deals, allCalls, recentCalls }: {
                   pct={(o.count / maxOutcome) * 100}
                   color={
                     o.id === "scheduled" ? "bg-emerald-500" :
-                    o.id === "talked" ? "bg-blue-500" :
-                    o.id === "callback" ? "bg-amber-500" :
+                                        o.id === "callback" ? "bg-amber-500" :
                     o.id === "not_interested" ? "bg-red-500/60" :
                     "bg-zinc-600"
                   }
