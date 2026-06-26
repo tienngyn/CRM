@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { AppearancePanel } from "@/components/appearance-panel";
+import { useAppearance } from "@/components/theme-provider";
 import {
   LayoutDashboard,
   PhoneCall,
@@ -11,6 +14,8 @@ import {
   CalendarDays,
   BarChart2,
   LogOut,
+  Palette,
+  Eye,
 } from "lucide-react";
 
 const links = [
@@ -24,6 +29,8 @@ const links = [
 export function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [panelOpen, setPanelOpen] = useState(false);
+  const { focus, setFocus } = useAppearance();
 
   async function logout() {
     const s = createClient();
@@ -61,7 +68,26 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="border-t border-white/5 p-3">
+      <div className="space-y-0.5 border-t border-white/5 p-3">
+        <button
+          onClick={() => setFocus(!focus)}
+          className={cn(
+            "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition",
+            focus
+              ? "bg-accent/10 text-accent"
+              : "text-zinc-400 hover:bg-white/[0.04] hover:text-white"
+          )}
+        >
+          <Eye className="size-4 shrink-0" />
+          Fokus-Modus
+        </button>
+        <button
+          onClick={() => setPanelOpen(true)}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 transition hover:bg-white/[0.04] hover:text-white"
+        >
+          <Palette className="size-4 shrink-0" />
+          Darstellung
+        </button>
         <button
           onClick={logout}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 transition hover:bg-white/[0.04] hover:text-white"
@@ -70,6 +96,8 @@ export function Sidebar() {
           Abmelden
         </button>
       </div>
+
+      <AppearancePanel open={panelOpen} onClose={() => setPanelOpen(false)} />
     </aside>
   );
 }

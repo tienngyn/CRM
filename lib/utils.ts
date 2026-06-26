@@ -6,12 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const STAGES = [
-  { id: "cold", label: "Cold Call", description: "Termin verkaufen" },
-  { id: "discovery", label: "Discovery", description: "Qualifizierung" },
-  { id: "proposal", label: "Proposal", description: "Angebot präsentieren" },
-  { id: "closing", label: "Closing", description: "Unterschrift & Anzahlung" },
-  { id: "kickoff", label: "Kick-off", description: "Daten sammeln" },
-  { id: "active", label: "Active", description: "In Umsetzung" },
+  { id: "cold", label: "Cold Call", description: "Termin verkaufen", color: "#38bdf8" },
+  { id: "discovery", label: "Discovery", description: "Qualifizierung", color: "#a78bfa" },
+  { id: "proposal", label: "Proposal", description: "Angebot präsentieren", color: "#f59e0b" },
+  { id: "closing", label: "Closing", description: "Unterschrift & Anzahlung", color: "#fb7185" },
+  { id: "kickoff", label: "Kick-off", description: "Daten sammeln", color: "#34d399" },
+  { id: "active", label: "Active", description: "In Umsetzung", color: "#22c55e" },
 ] as const;
 
 export type Stage = (typeof STAGES)[number]["id"];

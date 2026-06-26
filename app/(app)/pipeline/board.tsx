@@ -65,10 +65,12 @@ export function PipelineBoard({ initialDeals }: { initialDeals: Deal[] }) {
                       "flex min-h-[400px] flex-col rounded-xl border border-white/10 bg-white/[0.02] p-3 transition",
                       snapshot.isDraggingOver && "border-accent/40 bg-accent/[0.04]"
                     )}
+                    style={{ borderTop: `2px solid ${stage.color}` }}
                   >
                     <div className="mb-3 px-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium uppercase tracking-wider text-zinc-300">
+                        <span className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-zinc-300">
+                          <span className="size-2 rounded-full" style={{ background: stage.color }} />
                           {stage.label}
                         </span>
                         <span className="badge">{stageDeals.length}</span>

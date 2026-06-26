@@ -136,8 +136,16 @@ export default async function DashboardPage() {
           {STAGES.map((s) => {
             const count = all.filter((d) => d.stage === s.id).length;
             return (
-              <Link key={s.id} href="/pipeline" className="card card-hover p-4">
-                <div className="text-xs uppercase tracking-wider text-zinc-500">{s.label}</div>
+              <Link
+                key={s.id}
+                href="/pipeline"
+                className="card card-hover overflow-hidden p-4"
+                style={{ borderTop: `2px solid ${s.color}` }}
+              >
+                <div className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-zinc-500">
+                  <span className="size-2 rounded-full" style={{ background: s.color }} />
+                  {s.label}
+                </div>
                 <div className="mt-2 text-2xl font-semibold">{count}</div>
               </Link>
             );

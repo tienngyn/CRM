@@ -2,21 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────
+   Theme tokens. Colors are stored as space-separated RGB triplets
+   so Tailwind can apply opacity via rgb(var(--token) / <alpha>).
+   Default theme = Crimson. Other themes override on [data-theme].
+   ───────────────────────────────────────────────────────────── */
+:root,
+[data-theme="crimson"] {
+  --bg: 17 17 17;
+  --bg-elevated: 22 22 22;
+  --bg-card: 24 24 27;
+  --accent: 239 68 68;
+  --accent-hover: 220 38 38;
+}
+
+[data-theme="ocean"] {
+  --bg: 9 14 20;
+  --bg-elevated: 13 19 28;
+  --bg-card: 17 24 35;
+  --accent: 56 152 236;
+  --accent-hover: 37 124 207;
+}
+
+[data-theme="forest"] {
+  --bg: 10 17 14;
+  --bg-elevated: 14 22 18;
+  --bg-card: 18 28 23;
+  --accent: 52 199 123;
+  --accent-hover: 34 168 100;
+}
+
+[data-theme="violet"] {
+  --bg: 16 13 22;
+  --bg-elevated: 21 17 30;
+  --bg-card: 27 22 38;
+  --accent: 167 122 255;
+  --accent-hover: 139 92 246;
+}
+
+[data-theme="amber"] {
+  --bg: 20 16 10;
+  --bg-elevated: 26 21 14;
+  --bg-card: 33 27 18;
+  --accent: 245 173 63;
+  --accent-hover: 217 142 37;
+}
+
+/* Slate — low-stimulation, muted neutral accent (ADHD-friendly calm) */
+[data-theme="slate"] {
+  --bg: 15 18 22;
+  --bg-elevated: 19 23 28;
+  --bg-card: 24 29 36;
+  --accent: 148 163 184;
+  --accent-hover: 100 116 139;
+}
+
+/* High-contrast — maximum legibility / focus */
+[data-theme="contrast"] {
+  --bg: 0 0 0;
+  --bg-elevated: 10 10 10;
+  --bg-card: 18 18 18;
+  --accent: 255 255 255;
+  --accent-hover: 212 212 212;
+}
+
+html {
+  /* Adjustable base text size (set by the appearance panel). */
+  font-size: var(--font-scale, 100%);
+}
+
 html, body {
-  background-color: #111;
+  background-color: rgb(var(--bg));
   color: #f5f5f5;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: rgba(239, 68, 68, 0.3);
+  background: rgb(var(--accent) / 0.3);
   color: #fff;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-track { background: rgb(var(--bg)); }
 ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
@@ -48,4 +117,33 @@ html, body {
   .badge {
     @apply inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-xs font-medium text-zinc-300;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ADHD-friendly modes
+   ───────────────────────────────────────────────────────────── */
+
+/* Reduce motion — kill transitions/animations for users who find
+   movement distracting. */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  transition-duration: 0.001ms !important;
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+}
+
+/* Focus mode — strip decoration and narrow the reading column so the
+   eye has less to scan. */
+.focus-mode .decorative {
+  display: none !important;
+}
+.focus-mode main {
+  max-width: 60rem;
+  margin-inline: auto;
+}
+/* Calmer, flatter surfaces in focus mode. */
+.focus-mode .card {
+  backdrop-filter: none;
 }
