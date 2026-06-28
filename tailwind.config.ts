@@ -19,6 +19,18 @@ const config: Config = {
           hover: "rgb(var(--accent-hover) / <alpha-value>)",
           soft: "rgb(var(--accent) / 0.1)",
         },
+        // "white" is used throughout as the foreground/ink colour (text,
+        // borders, surface tints). Backing it with a variable lets it flip
+        // to near-black on light themes so the whole UI inverts correctly.
+        white: "rgb(var(--ink) / <alpha-value>)",
+        zinc: {
+          100: "rgb(var(--zinc-100) / <alpha-value>)",
+          200: "rgb(var(--zinc-200) / <alpha-value>)",
+          300: "rgb(var(--zinc-300) / <alpha-value>)",
+          400: "rgb(var(--zinc-400) / <alpha-value>)",
+          500: "rgb(var(--zinc-500) / <alpha-value>)",
+          600: "rgb(var(--zinc-600) / <alpha-value>)",
+        },
       },
       backgroundImage: {
         "radial-fade":

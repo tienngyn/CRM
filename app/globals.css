@@ -7,6 +7,18 @@
    so Tailwind can apply opacity via rgb(var(--token) / <alpha>).
    Default theme = Crimson. Other themes override on [data-theme].
    ───────────────────────────────────────────────────────────── */
+:root {
+  /* Neutral / foreground tokens — dark defaults. Light themes override. */
+  --ink: 255 255 255;
+  --on-accent: 255 255 255;
+  --zinc-100: 244 244 245;
+  --zinc-200: 228 228 231;
+  --zinc-300: 212 212 216;
+  --zinc-400: 161 161 170;
+  --zinc-500: 113 113 122;
+  --zinc-600: 82 82 91;
+}
+
 :root,
 [data-theme="crimson"] {
   --bg: 17 17 17;
@@ -64,6 +76,50 @@
   --bg-card: 18 18 18;
   --accent: 255 255 255;
   --accent-hover: 212 212 212;
+  --on-accent: 0 0 0;
+}
+
+/* ── Light themes ──────────────────────────────────────────────
+   Shared inverted neutrals so the dark-built UI reads on a light bg:
+   "ink" becomes near-black and the zinc scale flips dark→light. */
+[data-theme="daylight"],
+[data-theme="sand"],
+[data-theme="mint"] {
+  --ink: 24 24 27;
+  --on-accent: 255 255 255;
+  --zinc-100: 24 24 27;
+  --zinc-200: 39 39 42;
+  --zinc-300: 63 63 70;
+  --zinc-400: 82 82 91;
+  --zinc-500: 113 113 122;
+  --zinc-600: 161 161 170;
+}
+
+/* Daylight — clean neutral white, blue accent */
+[data-theme="daylight"] {
+  --bg: 250 250 251;
+  --bg-elevated: 255 255 255;
+  --bg-card: 255 255 255;
+  --accent: 37 99 235;
+  --accent-hover: 29 78 216;
+}
+
+/* Sand — warm paper, terracotta accent (low glare) */
+[data-theme="sand"] {
+  --bg: 247 244 239;
+  --bg-elevated: 252 250 246;
+  --bg-card: 255 254 251;
+  --accent: 201 91 60;
+  --accent-hover: 169 73 46;
+}
+
+/* Mint — soft light green, emerald accent (calm) */
+[data-theme="mint"] {
+  --bg: 246 250 248;
+  --bg-elevated: 252 254 253;
+  --bg-card: 255 255 255;
+  --accent: 5 150 105;
+  --accent-hover: 4 120 87;
 }
 
 html {
@@ -73,7 +129,7 @@ html {
 
 html, body {
   background-color: rgb(var(--bg));
-  color: #f5f5f5;
+  color: rgb(var(--zinc-100));
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -100,7 +156,8 @@ html, body {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:pointer-events-none disabled:opacity-50;
   }
   .btn-primary {
-    @apply btn bg-accent text-white hover:bg-accent-hover shadow-glow-red;
+    @apply btn bg-accent hover:bg-accent-hover shadow-glow-red;
+    color: rgb(var(--on-accent));
   }
   .btn-secondary {
     @apply btn border border-white/10 bg-white/[0.03] text-white hover:bg-white/[0.06];

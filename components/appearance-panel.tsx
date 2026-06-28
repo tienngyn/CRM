@@ -54,37 +54,41 @@ export function AppearancePanel({
 
         <div className="space-y-7 p-5">
           {/* Themes */}
-          <section>
-            <h3 className="label">Farbthema</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {THEMES.map((t) => {
-                const active = theme === t.id;
-                return (
-                  <button
-                    key={t.id}
-                    onClick={() => setTheme(t.id)}
-                    className={cn(
-                      "flex items-center gap-3 rounded-lg border p-3 text-left transition",
-                      active
-                        ? "border-accent/60 bg-accent/10"
-                        : "border-white/10 hover:border-white/20 hover:bg-white/[0.04]"
-                    )}
-                  >
-                    <span
-                      className="flex size-7 shrink-0 items-center justify-center rounded-full border border-white/10"
-                      style={{ background: t.bg }}
-                    >
-                      <span className="size-3.5 rounded-full" style={{ background: t.swatch }} />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">{t.label}</span>
-                      <span className="block truncate text-xs text-zinc-500">{t.hint}</span>
-                    </span>
-                    {active && <Check className="ml-auto size-4 shrink-0 text-accent" />}
-                  </button>
-                );
-              })}
-            </div>
+          <section className="space-y-4">
+            {(["dark", "light"] as const).map((mode) => (
+              <div key={mode}>
+                <h3 className="label">{mode === "dark" ? "Dunkle Themes" : "Helle Themes"}</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {THEMES.filter((t) => t.mode === mode).map((t) => {
+                    const active = theme === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => setTheme(t.id)}
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg border p-3 text-left transition",
+                          active
+                            ? "border-accent/60 bg-accent/10"
+                            : "border-white/10 hover:border-white/20 hover:bg-white/[0.04]"
+                        )}
+                      >
+                        <span
+                          className="flex size-7 shrink-0 items-center justify-center rounded-full border border-black/10"
+                          style={{ background: t.bg }}
+                        >
+                          <span className="size-3.5 rounded-full" style={{ background: t.swatch }} />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-medium">{t.label}</span>
+                          <span className="block truncate text-xs text-zinc-500">{t.hint}</span>
+                        </span>
+                        {active && <Check className="ml-auto size-4 shrink-0 text-accent" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </section>
 
           {/* Text size */}
@@ -170,7 +174,7 @@ function ToggleRow({
       >
         <span
           className={cn(
-            "absolute top-0.5 size-4 rounded-full bg-white transition-all",
+            "absolute top-0.5 size-4 rounded-full bg-[#fafafa] shadow transition-all",
             checked ? "left-[1.125rem]" : "left-0.5"
           )}
         />
